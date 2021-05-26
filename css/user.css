@@ -1,0 +1,108 @@
+:root {
+    --kremowy-roz: #ffe1ff;
+    --majestatyczna-purpura: #4d0d4d;
+    --magiczna-roz: #ff99ff;
+    --wyszukana-roz: #eba2eb;
+    --jasna-roz: #ff86e13a;
+    --sidebarowy-amarant: #ff86e1;
+    --niebieskawy-fiolet: #350583;
+    --aktywny-blekit: #5b28c8;
+    --mroczna-purpura: #2a052a;
+}
+
+.card {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.bg-gray-300 {
+    background-color: #e2e8f0;
+}
+.shadow-none {
+    box-shadow: none!important;
+}
+
+#userInfo {
+    max-width: 40%;
+    margin-top: 4%;
+    margin-left: 30%;
+}
+
+#userMain {
+    flex-shrink: unset;
+    margin-right: 0;
+}
+
+.btn-primary, .btn-outline-primary:hover, .btn-primary:hover {
+    color: #fff;
+    background-color: var(--aktywny-blekit);
+    border-color: var(--aktywny-blekit);
+}
+
+.btn-outline-primary {
+    color: var(--aktywny-blekit);
+    border-color: var(--aktywny-blekit);
+}
+
+.btn-check:focus + .btn-primary, .btn-primary:focus {
+    color: #fff;
+    background-color: var(--aktywny-blekit);
+    border-color: var(--aktywny-blekit);
+    box-shadow: 0 0 0 0.25rem rgb(35 05 83 / 50%);
+}
+
+.btn-check:focus + .btn-outline-primary, .btn-outline-primary:focus {
+    box-shadow: 0 0 0 0.25rem rgb(35 05 83 / 50%);
+}
+
+.modal {
+    margin-top: 5%;
+}
+
+body {
+    background-color:#EEEFEF;
+    font-family: roboto, open sans;
+    
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+  }
+  .container {
+    margin-top: 2.5%;
+  }
+  h2 {
+    text-align: center;
+  }
+  table {
+    background-color: var(--kremowy-roz);
+    box-shadow: 1px 1px 5px #888888;
+    border: 0px !important;
+  }
+  thead {
+    background-color:var(--sidebarowy-amarant);
+    color:#fff;
+  }
+  tbody>tr>td {
+    border-right: 0px !important;
+    border-left: 0px !important;
+    padding-top: 2% !important;
+}
+  thead>tr>th {
+    border-right: 0px !important;
+    border-left: 0px !important;
+    padding: 1.5% 1% !important;
+  }
+  tr:hover{
+    cursor: pointer;
+  }
+

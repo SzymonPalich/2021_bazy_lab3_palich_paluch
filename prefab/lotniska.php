@@ -29,7 +29,7 @@
                     @$search = $_REQUEST["search"];
                     $curr_page = '\'lotniska\'';
                     $temp = 'onclick="return insertLotnisko(' . $q . ', ' . $curr_page . ')"';
-                    echo '<button type="submit"' . $temp . 'class="btn btn-primary">Submit</button>';
+                    echo '<button type="submit"' . $temp . 'class="btn btn-primary">Dodaj</button>';
                     ?>
                 </form>
             </div>
@@ -62,7 +62,7 @@
                     </div>
                     <?php
                     $temp = 'onclick="return updateLotnisko(' . $q . ', ' . $curr_page . ')"';
-                    echo '<button type="submit"' . $temp . 'class="btn btn-primary">Submit</button>';
+                    echo '<button type="submit"' . $temp . 'class="btn btn-primary">Edytuj</button>';
                     echo '<span>Edytujesz lotnisko o id: <span id="lotniskoid_edit"></span></span>';
                     ?>
                 </form>

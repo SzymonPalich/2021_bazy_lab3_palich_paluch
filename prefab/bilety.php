@@ -60,7 +60,7 @@ include "../phpScripts/utils.php";
           @$search = $_REQUEST["search"];
           $curr_page = '\'bilety\'';
           $temp = 'onclick="return insertBilet(' . $q . ', ' . $curr_page . ')"';
-          echo '<button type="submit"' . $temp . 'class="btn btn-primary">Submit</button>';
+          echo '<button type="submit"' . $temp . 'class="btn btn-primary">Dodaj</button>';
           ?>
         </form>
       </div>
@@ -108,7 +108,7 @@ include "../phpScripts/utils.php";
           </div>
           <?php
           $temp = 'onclick="return updateBilet(' . $q . ', ' . $curr_page . ')"';
-          echo '<button type="submit"' . $temp . 'class="btn btn-primary">Submit</button>';
+          echo '<button type="submit"' . $temp . 'class="btn btn-primary">Edytuj</button>';
           echo '<span>Edytujesz bilet o id: <span id="biletid_edit"></span></span>';
           ?>
         </form>

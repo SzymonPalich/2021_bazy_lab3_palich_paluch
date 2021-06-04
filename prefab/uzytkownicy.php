@@ -11,11 +11,11 @@
       <div class="modal-body">
         <form>
           <div class="mb-3">
-            <label class="form-label">Username</label>
+            <label class="form-label">Nazwa użytkownika</label>
             <input class="form-control" id="username">
           </div>
           <div class="mb-3">
-            <label class="form-label">Password</label>
+            <label class="form-label">Hasło</label>
             <input type="password" class="form-control" id="password">
           </div>
           <div class="mb-3">
@@ -31,7 +31,7 @@
           @$search = $_REQUEST["search"];
           $curr_page = '\'uzytkownicy\'';
           $temp = 'onclick="return insertUser(' . $q . ', ' . $curr_page . ')"';
-          echo '<button type="submit"' . $temp . 'class="btn btn-primary">Submit</button>';
+          echo '<button type="submit"' . $temp . 'class="btn btn-primary">Dodaj</button>';
           ?>
         </form>
       </div>
@@ -66,8 +66,8 @@
             </select>
           </div>
           <?php
-          $temp = 'onclick="updateUser(' . $q . ', ' . $curr_page . ')"';
-          echo '<button type="return submit"' . $temp . 'class="btn btn-primary">Submit</button>';
+          $temp = 'onclick="return updateUser(' . $q . ', ' . $curr_page . ')"';
+          echo '<button type="return submit"' . $temp . 'class="btn btn-primary">Edytuj</button>';
           echo '<span>Edytujesz uzytkownika o id: <span id="userid_edit"></span></span>';
           ?>
         </form>

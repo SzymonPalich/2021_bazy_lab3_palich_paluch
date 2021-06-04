@@ -1,6 +1,5 @@
 <?php
 include "../phpScripts/utils.php";
-$date_now = date("Y-m-d") . "T" . date("h:i"); 
 ?>
 <br>
 
@@ -34,18 +33,18 @@ $date_now = date("Y-m-d") . "T" . date("h:i");
           </div>
           <div class="mb-3">
             <label class="form-label">Data odlotu</label>
-            <input type="datetime-local" min=<?php echo $date_now ?> class="form-control" id="d_odlotu">
+            <input type="datetime-local" class="form-control" id="d_odlotu">
           </div>
           <div class="mb-3">
             <label class="form-label">Data przylotu</label>
-            <input type="datetime-local" min=<?php echo $date_now ?> class="form-control" id="d_przylotu">
+            <input type="datetime-local" class="form-control" id="d_przylotu">
           </div>
           <?php
           $q = $_REQUEST["q"];
           @$search = $_REQUEST["search"];
           $curr_page = '\'loty\'';
           $temp = 'onclick="return insertLot(' . $q . ', ' . $curr_page . ')"';
-          echo '<button type="submit"' . $temp . 'class="btn btn-primary">Submit</button>';
+          echo '<button type="submit"' . $temp . 'class="btn btn-primary">Dodaj</button>';
           ?>
         </form>
       </div>
@@ -84,15 +83,15 @@ $date_now = date("Y-m-d") . "T" . date("h:i");
           </div>
           <div class="mb-3">
             <label class="form-label">Data odlotu</label>
-            <input type="datetime-local" min=<?php echo $date_now ?> class="form-control" id="d_odlotu_edit">
+            <input type="datetime-local" class="form-control" id="d_odlotu_edit">
           </div>
           <div class="mb-3">
             <label class="form-label">Data przylotu</label>
-            <input type="datetime-local" min=<?php echo $date_now ?> class="form-control" id="d_przylotu_edit">
+            <input type="datetime-local" class="form-control" id="d_przylotu_edit">
           </div>
           <?php
           $temp = 'onclick="return updateLot(' . $q . ', ' . $curr_page . ')"';
-          echo '<button type="submit"' . $temp . 'class="btn btn-primary">Submit</button>';
+          echo '<button type="submit"' . $temp . 'class="btn btn-primary">Edytuj</button>';
           echo '<span>Edytujesz samolot o id: <span id="lotid_edit"></span></span>';
           ?>
         </form>
@@ -101,7 +100,7 @@ $date_now = date("Y-m-d") . "T" . date("h:i");
   </div>
 </div>
 
-<h2>Loty <button type="button" class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#dodajModal">
+<h2>Loty <button type="button"  onclick="fixAddDate();" class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#dodajModal">
     Dodaj
   </button></h2>
 <div class="table-responsive">
@@ -148,3 +147,4 @@ $date_now = date("Y-m-d") . "T" . date("h:i");
     </ul>
   </nav>
 </div>
+

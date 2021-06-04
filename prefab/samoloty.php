@@ -41,7 +41,7 @@ include "../phpScripts/utils.php";
             @$search = $_REQUEST["search"];
             $curr_page = '\'samoloty\'';
             $temp = 'onclick="return insertSamolot(' . $q . ', ' . $curr_page . ')"';
-            echo '<button type="submit"' . $temp . 'class="btn btn-primary">Submit</button>';
+            echo '<button type="submit"' . $temp . 'class="btn btn-primary">Dodaj</button>';
           ?>
         </form>
       </div>
@@ -80,7 +80,7 @@ include "../phpScripts/utils.php";
           </div>
           <?php
             $temp = 'onclick="return updateSamolot(' . $q . ', ' . $curr_page . ')"';
-            echo '<button type="submit"' . $temp . 'class="btn btn-primary">Submit</button>';
+            echo '<button type="submit"' . $temp . 'class="btn btn-primary">Edytuj</button>';
             echo '<span>Edytujesz samolot o id: <span id="samolotid_edit"></span></span>';
           ?>
         </form>

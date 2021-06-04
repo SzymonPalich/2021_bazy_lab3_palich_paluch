@@ -15,7 +15,7 @@
           if (!isset($_SESSION['username'])) {
           ?><li class="nav-item"
           ><?php
-                echo '<a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal" onclick="javascript: showLoginForm();">Sign In</a>';
+                echo '<a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal" onclick="javascript: showLoginForm();">Zaloguj się</a>';
             ?></li><?php
             } else if($_SESSION['typ_konta'] == 0){
             ?><li class="nav-item dropdown">
@@ -26,11 +26,11 @@
                     ?>
               </a>
               <ul class="dropdown-menu dropdown-menu-dark text-small shadow w-100" aria-labelledby="dropdownUser">
-                <li><a class="dropdown-item" id="home" href="user.php">Home</a></li>
+                <li><a class="dropdown-item" id="home" href="user.php">Twój profil</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="phpScripts/logout.php">Sign Out</a></li>
+                <li><a class="dropdown-item" href="phpScripts/logout.php">Wyloguj się</a></li>
               </ul>
             </li>
             </li>

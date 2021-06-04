@@ -68,7 +68,7 @@ function makeTable()
       echo "<td>" . convertToHoursMins($row['PRZEWIDYWANY_CZAS_LOTU']) . "</td>";
       echo "<td>" . $row['CENA_BILETU'] . " zł" . "</td>";
       if (isset($_SESSION['username'])) {
-        echo "<td><a class='btn btn-primary' href='test10.php?id=" . $row['ID_LOT'] . "'>Book</button></td>";
+        echo "<td><a class='btn btn-primary' href='test10.php?id=" . $row['ID_LOT'] . "'>Zarezerwuj</button></td>";
       }
       else {
         echo "<td>" . "Lepiej się Zaloguj :) ". "</td>";
@@ -126,7 +126,7 @@ function makeTable()
             <input list="lista_krajow" name="kraj_przylotu" id="kraj_przylotu" class="form-control mb-4 search-field-left" type="text" placeholder="Podaj kraj..." aria-label="Search" />
             <input list="lista_miast" name="miasto_przylotu" id="miasto_przylotu" class="form-control mb-4 search-field-right" type="text" placeholder="...bądź miasto docelowe." aria-label="Search" />
             <br><br><br>
-            <input type="submit" href="#" class="search-button" value="Search!" />
+            <input type="submit" href="#" class="search-button" value="Szukaj!" />
           </div>
         </form>
       </div>
@@ -138,7 +138,7 @@ function makeTable()
       <div class="modal-dialog login animated">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">Login</h4>
+            <h4 class="modal-title">Logowanie</h4>
           </div>
           <div class="modal-body">
             <div class="box">
@@ -146,9 +146,9 @@ function makeTable()
                 <div class="error"></div>
                 <div class="form loginBox">
                   <form method="POST" action="" accept-charset="UTF-8">
-                    <input id="username" class="form-control" type="text" placeholder="Username" name="username" autocomplete="off">
-                    <input id="password" class="form-control" type="password" placeholder="Password" name="password" autocomplete="off">
-                    <input class="btn btn-default btn-login" type="button" value="Login" onclick="login()">
+                    <input id="username" class="form-control" type="text" placeholder="Nazwa użytkownika" name="username" autocomplete="off">
+                    <input id="password" class="form-control" type="password" placeholder="Hasło" name="password" autocomplete="off">
+                    <input class="btn btn-default btn-login" type="button" value="Zaloguj" onclick="login()">
                   </form>
                 </div>
               </div>
@@ -157,10 +157,10 @@ function makeTable()
               <div class="content registerBox" style="display:none;">
                 <div class="form">
                   <form method="" html="{:multipart=>true}" data-remote="true" action="" accept-charset="UTF-8">
-                    <input id="username2" class="form-control" type="text" placeholder="Email" name="email" autocomplete="off" />
-                    <input id="password2" class="form-control" type="password" placeholder="Password" name="password" autocomplete="off" />
-                    <input id="password_confirmation" class="form-control" type="password" placeholder="Repeat Password" name="password_confirmation" autocomplete="off" />
-                    <input class="btn btn-default btn-register" type="button" value="Create account" name="commit" onclick="register()">
+                    <input id="username2" class="form-control" type="text" placeholder="Nazwa użytkownika" name="email" autocomplete="off" />
+                    <input id="password2" class="form-control" type="password" placeholder="Hasło" name="password" autocomplete="off" />
+                    <input id="password_confirmation" class="form-control" type="password" placeholder="Powtórz hasło" name="password_confirmation" autocomplete="off" />
+                    <input class="btn btn-default btn-register" type="button" value="Zarejestruj" name="commit" onclick="register()">
                   </form>
                 </div>
               </div>
@@ -168,11 +168,11 @@ function makeTable()
           </div>
           <div class="modal-footer">
             <div class="forgot login-footer">
-              <span>Looking to <a class="show_new" href="javascript: showRegisterForm();">create an account</a>?</span>
+             <span>Czy chcesz <a class="show_new" href="javascript: showRegisterForm();">stworzyć konto</a>?</span>
             </div>
             <div class="forgot register-footer" style="display:none">
-              <span>Already have an account?</span>
-              <a class="show_new" href="javascript: showLoginForm();">Login</a>
+              <span>Juz posiadasz konto?</span>
+              <a class="show_new" href="javascript: showLoginForm();">Zaloguj</a>
             </div>
           </div>
         </div>

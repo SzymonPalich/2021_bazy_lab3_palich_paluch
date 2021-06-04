@@ -4,6 +4,9 @@ function loadUserData(name) {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementById("userMain").innerHTML =
         this.responseText;
+        timer0();
+        timer1();
+        timer2();
     }
   };
   xhttp.open("GET", "prefab/" + name + ".php", true);
@@ -73,4 +76,38 @@ function oplacRezerwacja(id) {
 
 function drukuj(id) {
   window.open("phpScripts/drukuj.php?el=" + id)
+}
+
+function pay(id) {
+  Swal.fire({
+      title: 'Czy chcesz opłacić ten lot?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Tak',
+      cancelButtonText: 'Nie',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        oplacRezerwacja(id);
+      }
+    })
+}
+
+function usunUzytkownika(username, tab){
+  Swal.fire({
+    title: 'Czy na pewno checsz usunąć konto?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Tak',
+    cancelButtonText: 'Nie',
+    reverseButtons: true
+  }).then((result) => {
+    if (result.isConfirmed) {
+      deleteUser(username, tab);
+    }
+  })
 }

@@ -16,6 +16,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="bootstrap/js/bootstrap.js"></script>
 
+
+
+
   <style>
     .active-pink-4 input[type=text]:focus:not([readonly]) {
       border: 1px solid #f48fb1;
@@ -52,16 +55,16 @@
       });
     });
 
-    function validateInput(){
-    var a = $('#kraj_odlotu').val().trim();
-    var b = $('#miasto_odlotu').val().trim();
-    var c = $('#kraj_przylotu').val().trim();
-    var d = $('#miasto_przylotu').val().trim();
-    if(a == "" && b == "" && c == "" && d == ""){
+    function validateInput() {
+      var a = $('#kraj_odlotu').val().trim();
+      var b = $('#miasto_odlotu').val().trim();
+      var c = $('#kraj_przylotu').val().trim();
+      var d = $('#miasto_przylotu').val().trim();
+      if (a == "" && b == "" && c == "" && d == "") {
         alert('Uzupelnij przynajmniej jedno pole');
         return false;
+      }
     }
-}
   </script>
 
 </head>
@@ -154,7 +157,7 @@
             <input list="lista_krajow" name="kraj_przylotu" id="kraj_przylotu" class="form-control mb-4 search-field-left" type="text" placeholder="Podaj kraj..." aria-label="Search" />
             <input list="lista_miast" name="miasto_przylotu" id="miasto_przylotu" class="form-control mb-4 search-field-right" type="text" placeholder="...bądź miasto docelowe." aria-label="Search" />
             <br><br><br>
-            <input type="submit" href="#" class="search-button" value="Search!" />
+            <input type="submit" href="#" class="search-button" value="Szukaj!" />
           </div>
         </form>
       </div>
@@ -164,19 +167,89 @@
   <!-- Flights -->
   <div id="new" class="container">
     <div class="row">
-      <div class="col-sm-6 col-md-4 col-xs-12">
-        <article class="card card-big mb15">
+      <?php
+      function upcomingFlights()
+      {
+        include "phpScripts/config2.php";
+        $curs = oci_new_cursor($conn);;
+        $stid = oci_parse($conn, "begin upcoming_flights(:cursbv); end;");
+        oci_bind_by_name($stid, ":cursbv", $curs, -1, OCI_B_CURSOR);
+        oci_execute($stid);
+
+        oci_execute($curs);
+        $git_gut = 0;
+
+        while (($row = oci_fetch_array($curs, OCI_ASSOC + OCI_RETURN_NULLS)) != false) {
+          $git_gut++;
+          $kod_odlotu = $row['KOD_ODLOTU'];
+          $miasto_odlotu = $row['MIASTO_ODLOTU'];
+          $kod_przylotu = $row['KOD_PRZYLOTU'];
+          $miasto_przylotu = $row['MIASTO_PRZYLOTU'];
+          $data_odlotu = $row['DATA_ODLOTU'];
+          $data_przylotu = $row['DATA_PRZYLOTU'];
+          $cena = $row['CENA_BILETU'];
+          $id_lot = $row['ID_LOT'];
+          makeCard($kod_odlotu, $miasto_odlotu, $kod_przylotu, $miasto_przylotu, $data_odlotu, $data_przylotu, $cena, $id_lot);
+        }
+        while ($git_gut < 3) {
+          echo '<div class="col-sm-6 col-md-4 col-xs-12">';
+          echo '
+            <article class="card card-big mb15">
+              <div class="card_img-wrap">
+                <img src="img/telatyn.jpg">
+                <h4 class="title title-overlay-center">Telatyn</h4>
+              </div>
+              <div class="card_info">
+                <div class="title-left-wrap">
+                  <h5>Telatyn</h5> <small> TEL </small>
+                </div>
+                <span class="icon-center-wrap"><i class="material-icons rotate90"></i></span>
+                <div class="title-right-wrap">
+                  <h5>Korea</h5> <small> KOR </small>
+                </div>
+              </div>
+              <div class="card_pricelist">
+                <div class="cost">
+                  <div class="logo-wrap"><img src="placeholder.gif"></div>
+                  <div class="icon-wrap"> <i class="material-icons">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small> </div>
+                  <div class="price-wrap"><var class="price"><span class="currency"><b>Cena od</b></span></var></div>
+                  <div class="price-wrap"><var class="price"><span class="currency">PLN</span> 120.14</var></div>
+                </div>
+              </div>
+            </article>';
+
+          echo '
+          </div>';
+          $git_gut++;
+        }
+
+
+        oci_free_statement($stid);
+        oci_free_statement($curs);
+        oci_close($conn);
+      }
+
+      function makeCard($kod_odlotu, $miasto_odlotu, $kod_przylotu, $miasto_przylotu, $data_odlotu, $data_przylotu, $cena, $id_lot)
+      {
+        $photo = 'photos/' . strtolower($miasto_przylotu) . '.png';
+        if (!file_exists($photo)) {
+          $photo = 'photos/placeholder.png';
+        }
+        echo '<div class="col-sm-6 col-md-4 col-xs-12">';
+        if ((isset($_SESSION['username'])))
+          echo '<a href="test10.php?id=' . $id_lot . '">';
+        echo '<article class="card card-big mb15">
           <div class="card_img-wrap">
-            <img src="img/telatyn.jpg">
-            <h4 class="title title-overlay-center">Telatyn</h4>
+            <img src="' . $photo . '">
+            <h4 class="title title-overlay-center">' . $miasto_przylotu . '</h4>
           </div>
           <div class="card_info">
             <div class="title-left-wrap">
-              <h5>Telatyn</h5> <small> TEL </small>
+              <h5>' . $miasto_odlotu . '</h5> <small> ' . $data_odlotu . ' </small>
             </div>
             <span class="icon-center-wrap"><i class="material-icons rotate90"></i></span>
             <div class="title-right-wrap">
-              <h5>Korea</h5> <small> KOR </small>
+              <h5>' . $miasto_przylotu . '</h5> <small>' . $data_przylotu . '</small>
             </div>
           </div>
           <div class="card_pricelist">
@@ -184,61 +257,17 @@
               <div class="logo-wrap"><img src="placeholder.gif"></div>
               <div class="icon-wrap"> <i class="material-icons">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small> </div>
               <div class="price-wrap"><var class="price"><span class="currency"><b>Cena od</b></span></var></div>
-              <div class="price-wrap"><var class="price"><span class="currency">PLN</span> 120.14</var></div>
+              <div class="price-wrap"><var class="price"><span class="currency">PLN </span>' . $cena . '</var></div>
             </div>
           </div>
-        </article>
-      </div>
-      <div class="col-sm-6 col-md-4 col-xs-12">
-        <article class="card card-big mb15">
-          <div class="card_img-wrap">
-            <img src="https://wallpapercave.com/wp/wp1999679.jpg">
-            <h4 class="title title-overlay-center">Cairo</h4>
-          </div>
-          <div class="card_info">
-            <div class="title-left-wrap">
-              <h5>Bangkok</h5> <small> BKK </small>
-            </div>
-            <span class="icon-center-wrap"><i class="material-icons rotate90"></i></span>
-            <div class="title-right-wrap">
-              <h5>Cairo</h5> <small>CAI </small>
-            </div>
-          </div>
-          <div class="card_pricelist">
-            <div class="cost">
-              <div class="logo-wrap"><img src="placeholder.gif"></div>
-              <div class="icon-wrap"> <i class="material-icons">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small> </div>
-              <div class="price-wrap"><var class="price"><span class="currency"><b>Cena od</b></span></var></div>
-              <div class="price-wrap"><var class="price"><span class="currency">PLN</span> 155.99</var></div>
-            </div>
-          </div>
-        </article>
-      </div>
-      <div class="col-sm-6 col-md-4 col-xs-12">
-        <article class="card card-big mb15">
-          <div class="card_img-wrap">
-            <img src="https://images5.alphacoders.com/821/thumb-1920-821152.jpg">
-            <h4 class="title title-overlay-center">Bangkok</h4>
-          </div>
-          <div class="card_info">
-            <div class="title-left-wrap">
-              <h5>Cairo</h5> <small> CAI </small>
-            </div>
-            <span class="icon-center-wrap"><i class="material-icons rotate90"></i></span>
-            <div class="title-right-wrap">
-              <h5>Bangkok</h5> <small>BKK </small>
-            </div>
-          </div>
-          <div class="card_pricelist">
-            <div class="cost">
-              <div class="logo-wrap"><img src="placeholder.gif"></div>
-              <div class="icon-wrap"> <i class="material-icons">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small> </div>
-              <div class="price-wrap"><var class="price"><span class="currency"><b>Cena od</b></span></var></div>
-              <div class="price-wrap"><var class="price"><span class="currency">PLN</span> 242.89</var></div>
-            </div>
-          </div>
-        </article>
-      </div>
+        </article>';
+        if ((isset($_SESSION['username']))) echo '</a>';
+        echo '
+      </div>';
+      }
+      upcomingFlights();
+      ?>
+
     </div>
   </div>
 
@@ -248,7 +277,7 @@
       <div class="modal-dialog login animated">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">Login</h4>
+            <h4 class="modal-title">Zaloguj</h4>
           </div>
           <div class="modal-body">
             <div class="box">
@@ -256,9 +285,9 @@
                 <div class="error"></div>
                 <div class="form loginBox">
                   <form method="POST" action="" accept-charset="UTF-8">
-                    <input id="username" class="form-control" type="text" placeholder="Username" name="username" autocomplete="off">
-                    <input id="password" class="form-control" type="password" placeholder="Password" name="password" autocomplete="off">
-                    <input class="btn btn-default btn-login" type="button" value="Login" onclick="login()">
+                    <input id="username" class="form-control" type="text" placeholder="Nazwa użytkownika" name="username" autocomplete="off">
+                    <input id="password" class="form-control" type="password" placeholder="Hasło" name="password" autocomplete="off">
+                    <input class="btn btn-default btn-login" type="button" value="Zaloguj" onclick="login()">
                   </form>
                 </div>
               </div>
@@ -267,10 +296,10 @@
               <div class="content registerBox" style="display:none;">
                 <div class="form">
                   <form method="" html="{:multipart=>true}" data-remote="true" action="" accept-charset="UTF-8">
-                    <input id="username2" class="form-control" type="text" placeholder="Email" name="email" autocomplete="off" />
-                    <input id="password2" class="form-control" type="password" placeholder="Password" name="password" autocomplete="off" />
-                    <input id="password_confirmation" class="form-control" type="password" placeholder="Repeat Password" name="password_confirmation" autocomplete="off" />
-                    <input class="btn btn-default btn-register" type="button" value="Create account" name="commit" onclick="register()">
+                    <input id="username2" class="form-control" type="text" placeholder="Nazwa użytkownika" name="email" autocomplete="off" />
+                    <input id="password2" class="form-control" type="password" placeholder="Hasło" name="password" autocomplete="off" />
+                    <input id="password_confirmation" class="form-control" type="password" placeholder="Powtórz hasło" name="password_confirmation" autocomplete="off" />
+                    <input class="btn btn-default btn-register" type="button" value="Zarejestruj" name="commit" onclick="register()">
                   </form>
                 </div>
               </div>
@@ -278,11 +307,11 @@
           </div>
           <div class="modal-footer">
             <div class="forgot login-footer">
-              <span>Looking to <a class="show_new" href="javascript: showRegisterForm();">create an account</a>?</span>
+              <span>Czy chcesz <a class="show_new" href="javascript: showRegisterForm();">stworzyć konto</a>?</span>
             </div>
             <div class="forgot register-footer" style="display:none">
-              <span>Already have an account?</span>
-              <a class="show_new" href="javascript: showLoginForm();">Login</a>
+              <span>Juz posiadasz konto?</span>
+              <a class="show_new" href="javascript: showLoginForm();">Zaloguj</a>
             </div>
           </div>
         </div>
@@ -304,9 +333,9 @@
       <div class="card">
         <img src="img/opinia2.png" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">毛泽东</h5>
+          <h5 class="card-title">Andrzej Nowak</h5>
           <p class="card-text">
-            非常好的航班，我衷心推薦。如果可以的話，我會再次飛翔。這些是我最喜歡的航空公司。良好的服務和快速的航班。非常好的航班，我衷心推薦。如果可以的話，我會再次飛翔。這些是我最喜歡的航空公司。良好的服務和快速的航班。非常好的航班，我衷心推薦。如果可以的話，我會再次飛翔良好的服務和快速的航班。</p>
+            With supporting text below as a natural lead-in to additional content. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus ex nobis totam, cumque exercitationem recusandae aspernatur omnis minima nihil labore aperiam expedita quae minus architecto, vero consequatur.</p>
         </div>
       </div>
     </div>

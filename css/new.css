@@ -124,7 +124,8 @@ h4 {
 }
 
 #new .card-big .logo-wrap img {
-    max-height: 34px;
+    height: 100%;
+    width: auto;
 }
 
 #new .card-big .icon-wrap {

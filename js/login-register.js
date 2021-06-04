@@ -4,7 +4,7 @@ function showRegisterForm() {
         $('.login-footer').fadeOut('fast', function () {
             $('.register-footer').fadeIn('fast');
         });
-        $('.modal-title').html('Register');
+        $('.modal-title').html('Rejestracja');
     });
     $('.error').removeClass('alert alert-danger').html('');
 
@@ -17,7 +17,7 @@ function showLoginForm() {
             $('.login-footer').fadeIn('fast');
         });
 
-        $('.modal-title').html('Login');
+        $('.modal-title').html('Logowanie');
     });
     $('.error').removeClass('alert alert-danger').html('');
 }

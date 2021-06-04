@@ -1,6 +1,82 @@
 <!doctype html>
 <html>
 
+<?php
+session_start();
+$success = include "./phpScripts/config2.php";
+
+$curs = oci_new_cursor($conn);
+$stid = oci_parse($conn, "begin ZBLIZAJACE_SIE_LOTY(:cursbv,'" . $_SESSION['username'] . "'); end;");
+oci_bind_by_name($stid, ":cursbv", $curs, -1, OCI_B_CURSOR);
+oci_execute($stid);
+
+oci_execute($curs);
+$i = 0;
+
+while (($row = oci_fetch_array($curs, OCI_ASSOC + OCI_RETURN_NULLS)) != false) {
+    $data_odlotu = $row['DATA_ODLOTU'];
+    $timestamp = DateTime::createFromFormat('d-m-y H:i', $data_odlotu);
+    $tajmu = $timestamp->getTimestamp();
+    $tajmu *= 1000;
+
+
+
+    echo '    
+    <script>
+    function timer'.$i.'() {
+        var countDownDate = '.$tajmu.';
+
+        var x = setInterval(function() {
+
+            var now = new Date().getTime();
+
+            var distance = countDownDate - now;
+
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("timer" + '.$i.').innerHTML = days + "d " + hours + "h " +
+                minutes + "m " + seconds + "s ";
+                
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("timer" + '.$i.').innerHTML = "EXPIRED";
+            }
+        }, 1000);
+    }
+    </script>';
+
+
+
+
+
+
+
+
+
+
+
+
+    $i++;
+}
+
+
+oci_free_statement($stid);
+oci_free_statement($curs);
+oci_close($conn);
+
+
+
+
+
+?>
+
+
+
+
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,6 +85,7 @@
 
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/new.css" />
     <script src="bootstrap/js/bootstrap.js"></script>
 
     <link href="css/login-register.css" rel="stylesheet" />
@@ -16,16 +93,45 @@
     <link href="css/user.css" rel="stylesheet" />
     <script src="js/user.js"></script>
 
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+
+
+
+
+
+
     <style>
+        .nic {
+            height: 270px;
+            font-size: large;
+        }
+
+
+        .lot-heading {
+            font-size: 30px;
+            margin: auto;
+            color: #2a052a;
+        }
+
+        .lot-border {
+            /* border-color: #ffffff;
+            border-style: dashed;
+            border-radius: 8px; */
+            height: 316px;
+            padding-top: 1px;
+            padding-bottom: 13px;
+        }
+
+        .xd {
+            padding-top: 8px !important;
+        }
+
         #placeholder {
             width: 288px;
             height: 162px;
-        }
-
-        #footer {
-            position: fixed;
-            width: 100%;
-            bottom: 0;
         }
     </style>
 
@@ -33,7 +139,7 @@
     <script>
         $(document).ready(function() {
             $("#home").click(function() {
-                loadUserData('userHome');
+                loadUserData('userProfile');
             });
             $("#bookings").click(function() {
                 loadUserData('userBookings');
@@ -42,19 +148,19 @@
                 loadUserData('userFlights');
             });
             $("#profile").click(function() {
-                loadUserData('userProfile');
+                loadUserData('userHome');
             })
         });
     </script>
 </head>
 
 <body>
-<?php 
-include "phpScripts/config.php";
-if (!isset($_SESSION['username']) || $_SESSION['typ_konta'] != 0) {
-    header('Location: index.php');
-}
-?>
+    <?php
+    include "phpScripts/config2.php";
+    if (!isset($_SESSION['username']) || $_SESSION['typ_konta'] != 0) {
+        header('Location: index.php');
+    }
+    ?>
 
     <nav class="navbar navbar-expand-lg navbar-light bd-navbar shadow">
         <div class="container-fluid">
@@ -75,14 +181,14 @@ if (!isset($_SESSION['username']) || $_SESSION['typ_konta'] != 0) {
                             </span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow w-100" aria-labelledby="dropdownUser">
-                            <li><a class="dropdown-item" id="home" href="#">Home</a></li>
-                            <li><a class="dropdown-item" id="bookings" href="#">Bookings</a></li>
-                            <li><a class="dropdown-item" id="paid" href="#">Flights</a></li>
-                            <li><a class="dropdown-item" id="profile" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" id="home" href="#">Profil</a></li>
+                            <li><a class="dropdown-item" id="bookings" href="#">Rezerwacje</a></li>
+                            <li><a class="dropdown-item" id="paid" href="#">Bilety</a></li>
+                            <li><a class="dropdown-item" id="profile" href="#">Loty</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="phpScripts/logout.php">Sign Out</a></li>
+                            <li><a class="dropdown-item" href="phpScripts/logout.php">Wyloguj</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -93,15 +199,13 @@ if (!isset($_SESSION['username']) || $_SESSION['typ_konta'] != 0) {
         <div class="row flex-nowrap">
             <main id="userMain">
                 <?php
-                include "prefab/userHome.php";
+                include "prefab/userProfile.php";
                 ?>
             </main>
 
         </div>
     </div>
-    <?php
-    include "prefab/footer";
-    ?>
 </body>
+
 
 </html>

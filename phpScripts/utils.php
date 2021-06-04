@@ -348,9 +348,9 @@ function getListLoty($page, $search)
         echo "<td>" . $row['DATA_ODLOTU'] . "</td>";
         echo "<td>" . $row['DATA_PRZYLOTU'] . "</td>";
         echo "<td>" . convertToHoursMins($row['PRZEWIDYWANY_CZAS_LOTU']) . "</td>";
-        echo "<td>" . $row['WAGA_BAGAZY'] . "</td>";
-        echo "<td>" . $row['PRZEWIDYWANY_ZYSK'] . "</td>";
-        echo "<td>&nbsp;&nbsp;&nbsp;<a data-bs-toggle='modal' data-bs-target='#edytujModal' onclick=setId(" . $row['ID_LOT'] . ",'#lotid_edit') href='#'><img src='./img/icons/edit.png'></a></td>";
+        echo "<td>" . $row['WAGA_BAGAZY'] . " kg" . "</td>";
+        echo "<td>" . $row['PRZEWIDYWANY_ZYSK'] . " zł" . "</td>";
+        echo "<td>&nbsp;&nbsp;&nbsp;<a data-bs-toggle='modal' data-bs-target='#edytujModal' onclick=setId(" . $row['ID_LOT'] . ",'#lotid_edit');fixEditDate(); href='#'><img src='./img/icons/edit.png'></a></td>";
         echo "<td>&nbsp;&nbsp;<a onclick=\"deleteLot(" . $row['ID_LOT'] . ", " . $page . ")\" href=\"#\"><img src='./img/icons/remove.png'></a></td>";
         echo "</tr>";
     }
@@ -401,6 +401,7 @@ function lotyGetPrzylot($type)
 
     if ($type == "ADD") {
         echo '<select class="form-control" id="m_przylotu">';
+        echo '<option></option>';
     }
     else {
         echo '<select class="form-control" id="m_przylotu_edit">';
@@ -429,6 +430,7 @@ function lotyGetOdlot($type)
 
     if ($type == "ADD") {
         echo '<select class="form-control" id="m_odlotu">';
+        echo '<option></option>';
     }
     else {
         echo '<select class="form-control" id="m_odlotu_edit">';

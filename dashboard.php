@@ -152,15 +152,86 @@
   }
   ?>
 
+  <script>
+    function fixAddDate(){
+      var now = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0,16);
+      document.getElementById("d_odlotu").min = now;
+      document.getElementById("d_przylotu").min = now;
+            $('#d_odlotu').change(function(){
+                if($('#d_odlotu').val() < now){
+                  document.getElementById("d_odlotu").value = now;
+                }
+                document.getElementById("d_przylotu").min = $('#d_odlotu').val();
+                if($('#d_przylotu').val() < $('#d_odlotu').val() && $('#d_przylotu').val() != '')
+                {
+                document.getElementById("d_przylotu").value = $('#d_odlotu').val();
+                }
+            });
+            $('#d_przylotu').change(function(){
+              if($('#d_przylotu').val() < now){
+                document.getElementById('d_przylotu').value = now;
+              }
+              if($('#d_przylotu').val() < $('#d_odlotu').val())
+              {
+                document.getElementById("d_przylotu").value = $('#d_odlotu').val();
+              }
+            });
+            $('#m_odlotu').change(function(){
+                if($('#m_odlotu').val() == $('#m_przylotu').val()){
+                    document.getElementById('m_odlotu').selectedIndex = '-1';
+                }
+            });
+            $('#m_przylotu').change(function(){
+                if($('#m_odlotu').val() == $('#m_przylotu').val()){
+                  document.getElementById('m_przylotu').selectedIndex = '-1';
+                }
+            });
+    }
+    function fixEditDate(){
+      var now = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0,16);
+      document.getElementById("d_odlotu_edit").min = now;
+      document.getElementById("d_przylotu_edit").min = now;
+            $('#d_odlotu_edit').change(function(){
+                if($('#d_odlotu_edit').val() < now){
+                  document.getElementById("d_odlotu_edit").value = now;
+                }
+                document.getElementById("d_przylotu_edit").min = $('#d_odlotu_edit').val();
+                if($('#d_przylotu_edit').val() < $('#d_odlotu_edit').val() && $('#d_przylotu_edit').val() != '')
+                {
+                document.getElementById("d_przylotu_edit").value = $('#d_odlotu_edit').val();
+                }
+            });
+            $('#d_przylotu_edit').change(function(){
+              if($('#d_przylotu_edit').val() < now){
+                document.getElementById('d_przylotu_edit').value = now;
+              }
+              if($('#d_przylotu_edit').val() < $('#d_odlotu_edit').val())
+              {
+                document.getElementById("d_przylotu_edit").value = $('#d_odlotu_edit').val();
+              }
+            })
+            $('#m_odlotu_edit').change(function(){
+                if($('#m_odlotu_edit').val() == $('#m_przylotu_edit').val()){
+                  document.getElementById('m_odlotu_edit').selectedIndex = '-1';
+                }
+            });
+            $('#m_przylotu_edit').change(function(){
+                if($('#m_odlotu_edit').val() == $('#m_przylotu_edit').val()){
+                  document.getElementById('m_przylotu_edit').selectedIndex = '-1';
+                }
+            });
+    }
+  </script>
+
   <header id="sign_out" class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="index.php">WruumAir</a>
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <input class="form-control form-control-dark w-100" id="search" type="text" placeholder="Search" aria-label="Search">
+    <input class="form-control form-control-dark w-100" id="search" type="text" placeholder="Szukaj" aria-label="Search">
     <ul class="navbar-nav px-3">
       <li class="nav-item text-nowrap">
-        <a class="nav-link" href="phpScripts/logout.php">Sign out</a>
+        <a class="nav-link" href="phpScripts/logout.php">Wyloguj</a>
       </li>
     </ul>
   </header>

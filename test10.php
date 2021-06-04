@@ -106,7 +106,7 @@
                 <input type="text" readonly class="form-control dis" name="name" id="name" value="<?php echo ucfirst($name) ?>">
             </div>
             <div class="mb-3">
-                <label class="form-label">Surname</label>
+                <label class="form-label">Nazwisko</label>
                 <input type="text" readonly class="form-control" name="surname" id="surname" value="<?php echo ucfirst($surname) ?>">
             </div>
             <div class="mb-3">
@@ -114,11 +114,11 @@
                 <input type="text" readonly class="form-control" name="e_mail" id="e_mail" value="<?php echo $e_mail ?>">
             </div>
             <div class="mb-3">
-                <label class="form-label">Number</label>
+                <label class="form-label">Numer tel.</label>
                 <input type="text" readonly class="form-control" name="number" id="number" value="<?php echo $number ?>">
             </div>
             <div class="mb-3">
-                <label class="form-label">Typ_bagazu</label>
+                <label class="form-label">Typ bagażu</label>
                 <input type="text" readonly class="form-control" name="typ_bagazu" id="typ_bagazu" value="Brak bagazu rejestrowanego">
             </div>
             <div class="mb-3">
@@ -130,11 +130,11 @@
                 <input class="form-control" type="number" name="bag_podr" id="bag_podr" min="0" max="12">
             </div>
             <div class="mb-3">
-                <label class="form-label">Waga bagażu rejestrowanego</label>
+                <label class="form-label">Waga bagażu resjestrowanego</label>
                 <input class="form-control" type="number" name="bag_rej" id="bag_rej" min="0" max="35">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" onclick="location.href='index.php'">Anuluj</button>
                 <button type="submit" class="btn btn-primary">Zarezerwuj :3</button>
             </div>
         </form>

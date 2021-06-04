@@ -32,7 +32,7 @@
                     @$search = $_REQUEST["search"];
                     $curr_page = '\'pracownicy\'';
                     $temp = 'onclick="return insertPracownik(' . $q . ', ' . $curr_page . ')"';
-                    echo '<button type="submit"' . $temp . 'class="btn btn-primary">Submit</button>';
+                    echo '<button type="submit"' . $temp . 'class="btn btn-primary">Dodaj</button>';
                     ?>
                 </form>
             </div>
@@ -69,7 +69,7 @@
                     </div>
                     <?php
                     $temp = 'onclick="return updatePracownik(' . $q . ', ' . $curr_page . ')"';
-                    echo '<button type="submit"' . $temp . 'class="btn btn-primary">Submit</button>';
+                    echo '<button type="submit"' . $temp . 'class="btn btn-primary">Edytuj</button>';
                     echo '<span>Edytujesz pracownika o id: <span id="pracownikid_edit"></span></span>';
                     ?>
                 </form>

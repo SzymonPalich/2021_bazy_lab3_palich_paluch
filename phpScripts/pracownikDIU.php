@@ -31,4 +31,4 @@ oci_close($conn);
 
 
 
-?>
+?>g

@@ -12,7 +12,7 @@ oci_execute($curs);
 
 $row = oci_fetch_array($curs, OCI_ASSOC + OCI_RETURN_NULLS);
 
-
+$id_bilet = $row['ID_BILET'];
 $imie = $row['IMIE'];
 $nazwisko = $row['NAZWISKO'];
 $cena = $row['CENA'];
@@ -103,7 +103,7 @@ $html = '
     
     <body>
         <div class="header">
-            <p class="left"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Biled Lotniczy &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                  #123</b></p>
+            <p class="left"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Biled Lotniczy &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                  #' . $id_bilet . '</b></p>
         </div>
         <br>
     
@@ -118,11 +118,11 @@ $html = '
             </tr>
             <tr>
                 <td class="tab-left">Cena</td>
-                <td class="tab-right">'.$cena.'</td>
+                <td class="tab-right">' . $cena . ' zł</td>
             </tr>
             <tr>
                 <td class="tab-left">Miejsce</td>
-                <td class="tab-right">'.$miejsce.'</td>
+                <td class="tab-right">' . $miejsce . '</td>
             </tr>
             <tr>
             <td class="blank"></td>
@@ -131,19 +131,19 @@ $html = '
 
             <tr>
                 <td class="tab-left">Miejsce odlotu</td>
-                <td class="tab-right">'.$miejsce_odlotu.'</td>
+                <td class="tab-right">' . $miejsce_odlotu . '</td>
             </tr>
             <tr>
                 <td class="tab-left">Miejsce docelowe</td>
-                <td class="tab-right">'.$miejsce_przylotu.'</td>
+                <td class="tab-right">' . $miejsce_przylotu . '</td>
             </tr>
             <tr>
                 <td class="tab-left">Data odlotu</td>
-                <td class="tab-right">'.$data_odlotu.'</td>
+                <td class="tab-right">' . $data_odlotu . '</td>
             </tr>
             <tr>
                 <td class="tab-left">Bagaż</td>
-                <td class="tab-right">'.$typ_bagazu.'</td>
+                <td class="tab-right">' . $typ_bagazu . '</td>
             </tr>
         </table>
 
